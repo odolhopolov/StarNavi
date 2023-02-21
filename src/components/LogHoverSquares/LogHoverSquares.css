@@ -1,0 +1,20 @@
+.squares__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.squares__title {
+  margin-bottom: 15px;
+}
+
+.squares__item {
+  margin-bottom: 6px;
+  padding: 10px 6px;
+
+  font-weight: 600;
+  color: #896D3A;
+
+  background: #FBF8E3;
+
+  border-radius: 8px;
+}

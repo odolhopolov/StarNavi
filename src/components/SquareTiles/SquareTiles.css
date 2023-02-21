@@ -1,0 +1,19 @@
+.square-tiles__container {
+  margin-top: 20px;
+}
+
+.square-tiles__row {
+  display: flex;
+}
+
+.square {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  background: #ffffff;
+}
+
+.square.active {
+  background: #03A8F4;
+}

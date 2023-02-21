@@ -1,0 +1,13 @@
+.main__container {
+  display: flex;
+}
+
+.main__wrapper {
+  margin-right: 50px;
+}
+
+.main__title {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 400;
+}
