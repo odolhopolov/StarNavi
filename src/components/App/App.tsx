@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import ErrorPage from "./components/ErrorPage/ErrorPage";
-import LogHoverSquares from "./components/LogHoverSquares/LogHoverSquares";
-import PickMode from "./components/PickMode/PickMode";
-import SquareTiles from "./components/SquareTiles/SquareTiles";
+import ErrorPage from "../ErrorPage/ErrorPage";
+import LogHoverSquares from "../LogHoverSquares/LogHoverSquares";
+import PickMode from "../PickMode/PickMode";
+import SquareTiles from "../SquareTiles/SquareTiles";
 
 const DEFAULT_COUNT_OF_FIELD = 0;
 
@@ -13,16 +13,15 @@ export interface IGameMode {
 }
 
 export interface ICellInfo {
-  row: string | null;
-  col: string | null;
+  row: number;
+  col: number;
 }
 
 function App() {
   const [appData, setAppData] = useState<IGameMode[]>([]);
-  const [countOfField, setCountOfField] = useState<number>(
-    DEFAULT_COUNT_OF_FIELD
-  );
+  const [count, setCount] = useState<number>(DEFAULT_COUNT_OF_FIELD);
   const [cellsInfo, setCellsInfo] = useState<ICellInfo[]>([]);
+  const [selectedCells, setSelectedCells] = useState<number[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -42,17 +41,21 @@ function App() {
   const modeNames = appData.map((mode) => mode.name);
 
   const getCountOfFieldSelectedMode = (nameMode: string): void => {
-    const selectedMode = appData.filter((mode) => mode.name === nameMode);
+    const [{ field }] = appData.filter((mode) => mode.name === nameMode);
 
-    setCountOfField(selectedMode?.[0].field);
+    setCount(field);
   };
 
-  const getCellInfo = (
-    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ): void => {
-    const target = e.target as HTMLSpanElement;
-    const row = target.getAttribute("data-row");
-    const col = target.getAttribute("data-col");
+  const handleCellHover = (row: number, col: number, cellNum: number): void => {
+    if (selectedCells.includes(cellNum)) {
+      const filteredSelectedCells = selectedCells.filter(
+        (selectedCell) => selectedCell !== cellNum
+      );
+
+      setSelectedCells(filteredSelectedCells);
+    } else {
+      setSelectedCells([...selectedCells, cellNum]);
+    }
 
     setCellsInfo([
       {
@@ -75,8 +78,9 @@ function App() {
           choseAppMode={getCountOfFieldSelectedMode}
         />
         <SquareTiles
-          countOfField={countOfField}
-          handleCellHover={getCellInfo}
+          countOfField={count}
+          handleCellHover={handleCellHover}
+          selectedCells={selectedCells}
         />
       </div>
       {cellsInfo.length !== 0 && <LogHoverSquares cellsInfo={cellsInfo} />}

@@ -1,4 +1,4 @@
-import { ICellInfo } from "../../App";
+import { ICellInfo } from "../App/App";
 import "./LogHoverSquares.css";
 
 interface ILogHoverSquares {

@@ -31,7 +31,7 @@ const PickMode = ({ modeNames, choseAppMode }: IPickMode): JSX.Element => {
       </select>
       <button
         className="pick-mode__button"
-        onClick={() => choseAppMode(selectedValue)}
+        onClick={() => selectedValue && choseAppMode(selectedValue)}
       >
         Start
       </button>
